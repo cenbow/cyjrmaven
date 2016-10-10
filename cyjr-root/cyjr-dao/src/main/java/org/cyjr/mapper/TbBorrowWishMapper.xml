@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbBorrowWishMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbBorrowWish">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="wish_money" jdbcType="VARCHAR" property="wishMoney" />
+    <result column="wish_apr" jdbcType="VARCHAR" property="wishApr" />
+    <result column="wish_Time" jdbcType="VARCHAR" property="wishTime" />
+    <result column="wish_use" jdbcType="VARCHAR" property="wishUse" />
+    <result column="wish_repay_style" jdbcType="VARCHAR" property="wishRepayStyle" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_phone2" jdbcType="VARCHAR" property="userPhone2" />
+    <result column="user_Security" jdbcType="VARCHAR" property="userSecurity" />
+    <result column="user_Security2" jdbcType="VARCHAR" property="userSecurity2" />
+    <result column="user_home_address" jdbcType="VARCHAR" property="userHomeAddress" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, wish_money, wish_apr, wish_Time, wish_use, wish_repay_style, user_phone, user_phone2, 
+    user_Security, user_Security2, user_home_address, user_id, username, create_time, 
+    status, realname
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbBorrowWishExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_borrow_wish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_borrow_wish
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_borrow_wish
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbBorrowWishExample">
+    delete from tb_borrow_wish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbBorrowWish">
+    insert into tb_borrow_wish (id, wish_money, wish_apr, 
+      wish_Time, wish_use, wish_repay_style, 
+      user_phone, user_phone2, user_Security, 
+      user_Security2, user_home_address, user_id, 
+      username, create_time, status, 
+      realname)
+    values (#{id,jdbcType=INTEGER}, #{wishMoney,jdbcType=VARCHAR}, #{wishApr,jdbcType=VARCHAR}, 
+      #{wishTime,jdbcType=VARCHAR}, #{wishUse,jdbcType=VARCHAR}, #{wishRepayStyle,jdbcType=VARCHAR}, 
+      #{userPhone,jdbcType=VARCHAR}, #{userPhone2,jdbcType=VARCHAR}, #{userSecurity,jdbcType=VARCHAR}, 
+      #{userSecurity2,jdbcType=VARCHAR}, #{userHomeAddress,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{realname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbBorrowWish">
+    insert into tb_borrow_wish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="wishMoney != null">
+        wish_money,
+      </if>
+      <if test="wishApr != null">
+        wish_apr,
+      </if>
+      <if test="wishTime != null">
+        wish_Time,
+      </if>
+      <if test="wishUse != null">
+        wish_use,
+      </if>
+      <if test="wishRepayStyle != null">
+        wish_repay_style,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userPhone2 != null">
+        user_phone2,
+      </if>
+      <if test="userSecurity != null">
+        user_Security,
+      </if>
+      <if test="userSecurity2 != null">
+        user_Security2,
+      </if>
+      <if test="userHomeAddress != null">
+        user_home_address,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wishMoney != null">
+        #{wishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="wishApr != null">
+        #{wishApr,jdbcType=VARCHAR},
+      </if>
+      <if test="wishTime != null">
+        #{wishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wishUse != null">
+        #{wishUse,jdbcType=VARCHAR},
+      </if>
+      <if test="wishRepayStyle != null">
+        #{wishRepayStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone2 != null">
+        #{userPhone2,jdbcType=VARCHAR},
+      </if>
+      <if test="userSecurity != null">
+        #{userSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="userSecurity2 != null">
+        #{userSecurity2,jdbcType=VARCHAR},
+      </if>
+      <if test="userHomeAddress != null">
+        #{userHomeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbBorrowWishExample" resultType="java.lang.Long">
+    select count(*) from tb_borrow_wish
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_borrow_wish
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wishMoney != null">
+        wish_money = #{record.wishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wishApr != null">
+        wish_apr = #{record.wishApr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wishTime != null">
+        wish_Time = #{record.wishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wishUse != null">
+        wish_use = #{record.wishUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wishRepayStyle != null">
+        wish_repay_style = #{record.wishRepayStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone2 != null">
+        user_phone2 = #{record.userPhone2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSecurity != null">
+        user_Security = #{record.userSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSecurity2 != null">
+        user_Security2 = #{record.userSecurity2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userHomeAddress != null">
+        user_home_address = #{record.userHomeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.realname != null">
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_borrow_wish
+    set id = #{record.id,jdbcType=INTEGER},
+      wish_money = #{record.wishMoney,jdbcType=VARCHAR},
+      wish_apr = #{record.wishApr,jdbcType=VARCHAR},
+      wish_Time = #{record.wishTime,jdbcType=VARCHAR},
+      wish_use = #{record.wishUse,jdbcType=VARCHAR},
+      wish_repay_style = #{record.wishRepayStyle,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_phone2 = #{record.userPhone2,jdbcType=VARCHAR},
+      user_Security = #{record.userSecurity,jdbcType=VARCHAR},
+      user_Security2 = #{record.userSecurity2,jdbcType=VARCHAR},
+      user_home_address = #{record.userHomeAddress,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      realname = #{record.realname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbBorrowWish">
+    update tb_borrow_wish
+    <set>
+      <if test="wishMoney != null">
+        wish_money = #{wishMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="wishApr != null">
+        wish_apr = #{wishApr,jdbcType=VARCHAR},
+      </if>
+      <if test="wishTime != null">
+        wish_Time = #{wishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="wishUse != null">
+        wish_use = #{wishUse,jdbcType=VARCHAR},
+      </if>
+      <if test="wishRepayStyle != null">
+        wish_repay_style = #{wishRepayStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone2 != null">
+        user_phone2 = #{userPhone2,jdbcType=VARCHAR},
+      </if>
+      <if test="userSecurity != null">
+        user_Security = #{userSecurity,jdbcType=VARCHAR},
+      </if>
+      <if test="userSecurity2 != null">
+        user_Security2 = #{userSecurity2,jdbcType=VARCHAR},
+      </if>
+      <if test="userHomeAddress != null">
+        user_home_address = #{userHomeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbBorrowWish">
+    update tb_borrow_wish
+    set wish_money = #{wishMoney,jdbcType=VARCHAR},
+      wish_apr = #{wishApr,jdbcType=VARCHAR},
+      wish_Time = #{wishTime,jdbcType=VARCHAR},
+      wish_use = #{wishUse,jdbcType=VARCHAR},
+      wish_repay_style = #{wishRepayStyle,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_phone2 = #{userPhone2,jdbcType=VARCHAR},
+      user_Security = #{userSecurity,jdbcType=VARCHAR},
+      user_Security2 = #{userSecurity2,jdbcType=VARCHAR},
+      user_home_address = #{userHomeAddress,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      realname = #{realname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

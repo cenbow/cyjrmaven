@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbUserRechargeMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbUserRecharge">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="money_recharge" jdbcType="DECIMAL" property="moneyRecharge" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="third_platform" jdbcType="INTEGER" property="thirdPlatform" />
+    <result column="third_platform_order_id" jdbcType="VARCHAR" property="thirdPlatformOrderId" />
+    <result column="pay_source" jdbcType="VARCHAR" property="paySource" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    <result column="created_ip" jdbcType="VARCHAR" property="createdIp" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cyjr.model.TbUserRecharge">
+    <result column="pay_result" jdbcType="LONGVARCHAR" property="payResult" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_id, account, card_no, money_recharge, remark, third_platform, third_platform_order_id, 
+    pay_source, status, created_by, updated_by, created_at, updated_at, created_ip
+  </sql>
+  <sql id="Blob_Column_List">
+    pay_result
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.cyjr.model.TbUserRechargeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_user_recharge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbUserRechargeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_user_recharge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_user_recharge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_user_recharge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbUserRechargeExample">
+    delete from tb_user_recharge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbUserRecharge">
+    insert into tb_user_recharge (id, order_id, account, 
+      card_no, money_recharge, remark, 
+      third_platform, third_platform_order_id, pay_source, 
+      status, created_by, updated_by, 
+      created_at, updated_at, created_ip, 
+      pay_result)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{cardNo,jdbcType=VARCHAR}, #{moneyRecharge,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, 
+      #{thirdPlatform,jdbcType=INTEGER}, #{thirdPlatformOrderId,jdbcType=VARCHAR}, #{paySource,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createdBy,jdbcType=INTEGER}, #{updatedBy,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}, #{createdIp,jdbcType=VARCHAR}, 
+      #{payResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbUserRecharge">
+    insert into tb_user_recharge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="moneyRecharge != null">
+        money_recharge,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="thirdPlatform != null">
+        third_platform,
+      </if>
+      <if test="thirdPlatformOrderId != null">
+        third_platform_order_id,
+      </if>
+      <if test="paySource != null">
+        pay_source,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="createdIp != null">
+        created_ip,
+      </if>
+      <if test="payResult != null">
+        pay_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyRecharge != null">
+        #{moneyRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPlatform != null">
+        #{thirdPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="thirdPlatformOrderId != null">
+        #{thirdPlatformOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="paySource != null">
+        #{paySource,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdIp != null">
+        #{createdIp,jdbcType=VARCHAR},
+      </if>
+      <if test="payResult != null">
+        #{payResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbUserRechargeExample" resultType="java.lang.Long">
+    select count(*) from tb_user_recharge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_user_recharge
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNo != null">
+        card_no = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneyRecharge != null">
+        money_recharge = #{record.moneyRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdPlatform != null">
+        third_platform = #{record.thirdPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="record.thirdPlatformOrderId != null">
+        third_platform_order_id = #{record.thirdPlatformOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paySource != null">
+        pay_source = #{record.paySource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedBy != null">
+        updated_by = #{record.updatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdIp != null">
+        created_ip = #{record.createdIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payResult != null">
+        pay_result = #{record.payResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_user_recharge
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      card_no = #{record.cardNo,jdbcType=VARCHAR},
+      money_recharge = #{record.moneyRecharge,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      third_platform = #{record.thirdPlatform,jdbcType=INTEGER},
+      third_platform_order_id = #{record.thirdPlatformOrderId,jdbcType=VARCHAR},
+      pay_source = #{record.paySource,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      created_by = #{record.createdBy,jdbcType=INTEGER},
+      updated_by = #{record.updatedBy,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      created_ip = #{record.createdIp,jdbcType=VARCHAR},
+      pay_result = #{record.payResult,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_user_recharge
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      card_no = #{record.cardNo,jdbcType=VARCHAR},
+      money_recharge = #{record.moneyRecharge,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      third_platform = #{record.thirdPlatform,jdbcType=INTEGER},
+      third_platform_order_id = #{record.thirdPlatformOrderId,jdbcType=VARCHAR},
+      pay_source = #{record.paySource,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      created_by = #{record.createdBy,jdbcType=INTEGER},
+      updated_by = #{record.updatedBy,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      created_ip = #{record.createdIp,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbUserRecharge">
+    update tb_user_recharge
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyRecharge != null">
+        money_recharge = #{moneyRecharge,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPlatform != null">
+        third_platform = #{thirdPlatform,jdbcType=INTEGER},
+      </if>
+      <if test="thirdPlatformOrderId != null">
+        third_platform_order_id = #{thirdPlatformOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="paySource != null">
+        pay_source = #{paySource,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdIp != null">
+        created_ip = #{createdIp,jdbcType=VARCHAR},
+      </if>
+      <if test="payResult != null">
+        pay_result = #{payResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cyjr.model.TbUserRecharge">
+    update tb_user_recharge
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      money_recharge = #{moneyRecharge,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      third_platform = #{thirdPlatform,jdbcType=INTEGER},
+      third_platform_order_id = #{thirdPlatformOrderId,jdbcType=VARCHAR},
+      pay_source = #{paySource,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      updated_by = #{updatedBy,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      created_ip = #{createdIp,jdbcType=VARCHAR},
+      pay_result = #{payResult,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbUserRecharge">
+    update tb_user_recharge
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      money_recharge = #{moneyRecharge,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      third_platform = #{thirdPlatform,jdbcType=INTEGER},
+      third_platform_order_id = #{thirdPlatformOrderId,jdbcType=VARCHAR},
+      pay_source = #{paySource,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      updated_by = #{updatedBy,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      created_ip = #{createdIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

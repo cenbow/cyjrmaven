@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbBankCardMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbBankCard">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="bank_id" jdbcType="INTEGER" property="bankId" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_detail" jdbcType="VARCHAR" property="bankDetail" />
+    <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    <result column="request_no" jdbcType="VARCHAR" property="requestNo" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="ticket" jdbcType="VARCHAR" property="ticket" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, province, city, bank_id, bank_name, bank_detail, phone_no, card_no, 
+    status, created_at, updated_at, request_no, card_id, ticket
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbBankCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_bank_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bank_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_bank_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbBankCardExample">
+    delete from tb_bank_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbBankCard">
+    insert into tb_bank_card (id, user_id, province, 
+      city, bank_id, bank_name, 
+      bank_detail, phone_no, card_no, 
+      status, created_at, updated_at, 
+      request_no, card_id, ticket
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{bankId,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, 
+      #{bankDetail,jdbcType=VARCHAR}, #{phoneNo,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}, 
+      #{requestNo,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, #{ticket,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbBankCard">
+    insert into tb_bank_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="bankId != null">
+        bank_id,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="bankDetail != null">
+        bank_detail,
+      </if>
+      <if test="phoneNo != null">
+        phone_no,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="requestNo != null">
+        request_no,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="ticket != null">
+        ticket,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null">
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankDetail != null">
+        #{bankDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="requestNo != null">
+        #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null">
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbBankCardExample" resultType="java.lang.Long">
+    select count(*) from tb_bank_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_bank_card
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankId != null">
+        bank_id = #{record.bankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankName != null">
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankDetail != null">
+        bank_detail = #{record.bankDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNo != null">
+        phone_no = #{record.phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNo != null">
+        card_no = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestNo != null">
+        request_no = #{record.requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null">
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ticket != null">
+        ticket = #{record.ticket,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_bank_card
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      bank_id = #{record.bankId,jdbcType=INTEGER},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_detail = #{record.bankDetail,jdbcType=VARCHAR},
+      phone_no = #{record.phoneNo,jdbcType=VARCHAR},
+      card_no = #{record.cardNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      request_no = #{record.requestNo,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      ticket = #{record.ticket,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbBankCard">
+    update tb_bank_card
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="bankId != null">
+        bank_id = #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankDetail != null">
+        bank_detail = #{bankDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="requestNo != null">
+        request_no = #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null">
+        ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbBankCard">
+    update tb_bank_card
+    set user_id = #{userId,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      bank_id = #{bankId,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_detail = #{bankDetail,jdbcType=VARCHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      request_no = #{requestNo,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      ticket = #{ticket,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbCmsMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbCms">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="metaTitle" jdbcType="VARCHAR" property="metatitle" />
+    <result column="metaDescription" jdbcType="VARCHAR" property="metadescription" />
+    <result column="metaKeywords" jdbcType="VARCHAR" property="metakeywords" />
+    <result column="created_At" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_At" jdbcType="INTEGER" property="updatedAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cyjr.model.TbCms">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, url, title, status, metaTitle, metaDescription, metaKeywords, created_At, updated_At
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.cyjr.model.TbCmsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_cms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbCmsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_cms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_cms
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_cms
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbCmsExample">
+    delete from tb_cms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbCms">
+    insert into tb_cms (id, url, title, 
+      status, metaTitle, metaDescription, 
+      metaKeywords, created_At, updated_At, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{metatitle,jdbcType=VARCHAR}, #{metadescription,jdbcType=VARCHAR}, 
+      #{metakeywords,jdbcType=VARCHAR}, #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbCms">
+    insert into tb_cms
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="metatitle != null">
+        metaTitle,
+      </if>
+      <if test="metadescription != null">
+        metaDescription,
+      </if>
+      <if test="metakeywords != null">
+        metaKeywords,
+      </if>
+      <if test="createdAt != null">
+        created_At,
+      </if>
+      <if test="updatedAt != null">
+        updated_At,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="metatitle != null">
+        #{metatitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metadescription != null">
+        #{metadescription,jdbcType=VARCHAR},
+      </if>
+      <if test="metakeywords != null">
+        #{metakeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbCmsExample" resultType="java.lang.Long">
+    select count(*) from tb_cms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_cms
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.metatitle != null">
+        metaTitle = #{record.metatitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metadescription != null">
+        metaDescription = #{record.metadescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metakeywords != null">
+        metaKeywords = #{record.metakeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_At = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_At = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_cms
+    set id = #{record.id,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      metaTitle = #{record.metatitle,jdbcType=VARCHAR},
+      metaDescription = #{record.metadescription,jdbcType=VARCHAR},
+      metaKeywords = #{record.metakeywords,jdbcType=VARCHAR},
+      created_At = #{record.createdAt,jdbcType=INTEGER},
+      updated_At = #{record.updatedAt,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_cms
+    set id = #{record.id,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      metaTitle = #{record.metatitle,jdbcType=VARCHAR},
+      metaDescription = #{record.metadescription,jdbcType=VARCHAR},
+      metaKeywords = #{record.metakeywords,jdbcType=VARCHAR},
+      created_At = #{record.createdAt,jdbcType=INTEGER},
+      updated_At = #{record.updatedAt,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbCms">
+    update tb_cms
+    <set>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="metatitle != null">
+        metaTitle = #{metatitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metadescription != null">
+        metaDescription = #{metadescription,jdbcType=VARCHAR},
+      </if>
+      <if test="metakeywords != null">
+        metaKeywords = #{metakeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_At = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_At = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cyjr.model.TbCms">
+    update tb_cms
+    set url = #{url,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      metaTitle = #{metatitle,jdbcType=VARCHAR},
+      metaDescription = #{metadescription,jdbcType=VARCHAR},
+      metaKeywords = #{metakeywords,jdbcType=VARCHAR},
+      created_At = #{createdAt,jdbcType=INTEGER},
+      updated_At = #{updatedAt,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbCms">
+    update tb_cms
+    set url = #{url,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      metaTitle = #{metatitle,jdbcType=VARCHAR},
+      metaDescription = #{metadescription,jdbcType=VARCHAR},
+      metaKeywords = #{metakeywords,jdbcType=VARCHAR},
+      created_At = #{createdAt,jdbcType=INTEGER},
+      updated_At = #{updatedAt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

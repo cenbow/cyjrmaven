@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbVerifyBorrowLogMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbVerifyBorrowLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="op_type" jdbcType="INTEGER" property="opType" />
+    <result column="op_status" jdbcType="INTEGER" property="opStatus" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="updated_by" jdbcType="INTEGER" property="updatedBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, borrow_id, op_type, op_status, remark, created_at, updated_at, created_by, updated_by
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbVerifyBorrowLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_verify_borrow_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_verify_borrow_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_verify_borrow_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbVerifyBorrowLogExample">
+    delete from tb_verify_borrow_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbVerifyBorrowLog">
+    insert into tb_verify_borrow_log (id, borrow_id, op_type, 
+      op_status, remark, created_at, 
+      updated_at, created_by, updated_by
+      )
+    values (#{id,jdbcType=INTEGER}, #{borrowId,jdbcType=INTEGER}, #{opType,jdbcType=INTEGER}, 
+      #{opStatus,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createdAt,jdbcType=INTEGER}, 
+      #{updatedAt,jdbcType=INTEGER}, #{createdBy,jdbcType=INTEGER}, #{updatedBy,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbVerifyBorrowLog">
+    insert into tb_verify_borrow_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="opStatus != null">
+        op_status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opStatus != null">
+        #{opStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbVerifyBorrowLogExample" resultType="java.lang.Long">
+    select count(*) from tb_verify_borrow_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_verify_borrow_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.opType != null">
+        op_type = #{record.opType,jdbcType=INTEGER},
+      </if>
+      <if test="record.opStatus != null">
+        op_status = #{record.opStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedBy != null">
+        updated_by = #{record.updatedBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_verify_borrow_log
+    set id = #{record.id,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      op_type = #{record.opType,jdbcType=INTEGER},
+      op_status = #{record.opStatus,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      created_by = #{record.createdBy,jdbcType=INTEGER},
+      updated_by = #{record.updatedBy,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbVerifyBorrowLog">
+    update tb_verify_borrow_log
+    <set>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opStatus != null">
+        op_status = #{opStatus,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbVerifyBorrowLog">
+    update tb_verify_borrow_log
+    set borrow_id = #{borrowId,jdbcType=INTEGER},
+      op_type = #{opType,jdbcType=INTEGER},
+      op_status = #{opStatus,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      updated_by = #{updatedBy,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

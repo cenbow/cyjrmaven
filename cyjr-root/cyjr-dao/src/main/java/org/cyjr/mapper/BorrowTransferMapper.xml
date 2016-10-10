@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.BorrowTransferMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.BorrowTransfer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="orderNo" jdbcType="VARCHAR" property="orderno" />
+    <result column="borrowId" jdbcType="INTEGER" property="borrowid" />
+    <result column="tenderId" jdbcType="INTEGER" property="tenderid" />
+    <result column="tenderUserId" jdbcType="INTEGER" property="tenderuserid" />
+    <result column="transfereeUserId" jdbcType="INTEGER" property="transfereeuserid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="collectMoney" jdbcType="VARCHAR" property="collectmoney" />
+    <result column="transferMoney" jdbcType="VARCHAR" property="transfermoney" />
+    <result column="transferFee" jdbcType="DECIMAL" property="transferfee" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="leaveInterest" jdbcType="DECIMAL" property="leaveinterest" />
+    <result column="transferDay" jdbcType="VARCHAR" property="transferday" />
+    <result column="transferApr" jdbcType="VARCHAR" property="transferapr" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="addtime" jdbcType="INTEGER" property="addtime" />
+    <result column="endtime" jdbcType="INTEGER" property="endtime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, orderNo, borrowId, tenderId, tenderUserId, transfereeUserId, status, collectMoney, 
+    transferMoney, transferFee, account, leaveInterest, transferDay, transferApr, remark, 
+    addtime, endtime, version
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.BorrowTransferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from borrow_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from borrow_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from borrow_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.BorrowTransferExample">
+    delete from borrow_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.BorrowTransfer">
+    insert into borrow_transfer (id, orderNo, borrowId, 
+      tenderId, tenderUserId, transfereeUserId, 
+      status, collectMoney, transferMoney, 
+      transferFee, account, leaveInterest, 
+      transferDay, transferApr, remark, 
+      addtime, endtime, version
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderno,jdbcType=VARCHAR}, #{borrowid,jdbcType=INTEGER}, 
+      #{tenderid,jdbcType=INTEGER}, #{tenderuserid,jdbcType=INTEGER}, #{transfereeuserid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{collectmoney,jdbcType=VARCHAR}, #{transfermoney,jdbcType=VARCHAR}, 
+      #{transferfee,jdbcType=DECIMAL}, #{account,jdbcType=DECIMAL}, #{leaveinterest,jdbcType=DECIMAL}, 
+      #{transferday,jdbcType=VARCHAR}, #{transferapr,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=INTEGER}, #{endtime,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.BorrowTransfer">
+    insert into borrow_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderno != null">
+        orderNo,
+      </if>
+      <if test="borrowid != null">
+        borrowId,
+      </if>
+      <if test="tenderid != null">
+        tenderId,
+      </if>
+      <if test="tenderuserid != null">
+        tenderUserId,
+      </if>
+      <if test="transfereeuserid != null">
+        transfereeUserId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="collectmoney != null">
+        collectMoney,
+      </if>
+      <if test="transfermoney != null">
+        transferMoney,
+      </if>
+      <if test="transferfee != null">
+        transferFee,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="leaveinterest != null">
+        leaveInterest,
+      </if>
+      <if test="transferday != null">
+        transferDay,
+      </if>
+      <if test="transferapr != null">
+        transferApr,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderno != null">
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowid != null">
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="tenderid != null">
+        #{tenderid,jdbcType=INTEGER},
+      </if>
+      <if test="tenderuserid != null">
+        #{tenderuserid,jdbcType=INTEGER},
+      </if>
+      <if test="transfereeuserid != null">
+        #{transfereeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="collectmoney != null">
+        #{collectmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="transfermoney != null">
+        #{transfermoney,jdbcType=VARCHAR},
+      </if>
+      <if test="transferfee != null">
+        #{transferfee,jdbcType=DECIMAL},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="leaveinterest != null">
+        #{leaveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="transferday != null">
+        #{transferday,jdbcType=VARCHAR},
+      </if>
+      <if test="transferapr != null">
+        #{transferapr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.BorrowTransferExample" resultType="java.lang.Long">
+    select count(*) from borrow_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update borrow_transfer
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderno != null">
+        orderNo = #{record.orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.borrowid != null">
+        borrowId = #{record.borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderid != null">
+        tenderId = #{record.tenderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderuserid != null">
+        tenderUserId = #{record.tenderuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.transfereeuserid != null">
+        transfereeUserId = #{record.transfereeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectmoney != null">
+        collectMoney = #{record.collectmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transfermoney != null">
+        transferMoney = #{record.transfermoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferfee != null">
+        transferFee = #{record.transferfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=DECIMAL},
+      </if>
+      <if test="record.leaveinterest != null">
+        leaveInterest = #{record.leaveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transferday != null">
+        transferDay = #{record.transferday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferapr != null">
+        transferApr = #{record.transferapr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addtime != null">
+        addtime = #{record.addtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update borrow_transfer
+    set id = #{record.id,jdbcType=INTEGER},
+      orderNo = #{record.orderno,jdbcType=VARCHAR},
+      borrowId = #{record.borrowid,jdbcType=INTEGER},
+      tenderId = #{record.tenderid,jdbcType=INTEGER},
+      tenderUserId = #{record.tenderuserid,jdbcType=INTEGER},
+      transfereeUserId = #{record.transfereeuserid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      collectMoney = #{record.collectmoney,jdbcType=VARCHAR},
+      transferMoney = #{record.transfermoney,jdbcType=VARCHAR},
+      transferFee = #{record.transferfee,jdbcType=DECIMAL},
+      account = #{record.account,jdbcType=DECIMAL},
+      leaveInterest = #{record.leaveinterest,jdbcType=DECIMAL},
+      transferDay = #{record.transferday,jdbcType=VARCHAR},
+      transferApr = #{record.transferapr,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      endtime = #{record.endtime,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.BorrowTransfer">
+    update borrow_transfer
+    <set>
+      <if test="orderno != null">
+        orderNo = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowid != null">
+        borrowId = #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="tenderid != null">
+        tenderId = #{tenderid,jdbcType=INTEGER},
+      </if>
+      <if test="tenderuserid != null">
+        tenderUserId = #{tenderuserid,jdbcType=INTEGER},
+      </if>
+      <if test="transfereeuserid != null">
+        transfereeUserId = #{transfereeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="collectmoney != null">
+        collectMoney = #{collectmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="transfermoney != null">
+        transferMoney = #{transfermoney,jdbcType=VARCHAR},
+      </if>
+      <if test="transferfee != null">
+        transferFee = #{transferfee,jdbcType=DECIMAL},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="leaveinterest != null">
+        leaveInterest = #{leaveinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="transferday != null">
+        transferDay = #{transferday,jdbcType=VARCHAR},
+      </if>
+      <if test="transferapr != null">
+        transferApr = #{transferapr,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.BorrowTransfer">
+    update borrow_transfer
+    set orderNo = #{orderno,jdbcType=VARCHAR},
+      borrowId = #{borrowid,jdbcType=INTEGER},
+      tenderId = #{tenderid,jdbcType=INTEGER},
+      tenderUserId = #{tenderuserid,jdbcType=INTEGER},
+      transfereeUserId = #{transfereeuserid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      collectMoney = #{collectmoney,jdbcType=VARCHAR},
+      transferMoney = #{transfermoney,jdbcType=VARCHAR},
+      transferFee = #{transferfee,jdbcType=DECIMAL},
+      account = #{account,jdbcType=DECIMAL},
+      leaveInterest = #{leaveinterest,jdbcType=DECIMAL},
+      transferDay = #{transferday,jdbcType=VARCHAR},
+      transferApr = #{transferapr,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=INTEGER},
+      endtime = #{endtime,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbBorrowTenderMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbBorrowTender">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="account" jdbcType="DECIMAL" property="account" />
+    <result column="repayment_account" jdbcType="DECIMAL" property="repaymentAccount" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="repayment_yesaccount" jdbcType="DECIMAL" property="repaymentYesaccount" />
+    <result column="wait_account" jdbcType="DECIMAL" property="waitAccount" />
+    <result column="wait_interest" jdbcType="DECIMAL" property="waitInterest" />
+    <result column="repayment_yesinterest" jdbcType="DECIMAL" property="repaymentYesinterest" />
+    <result column="addtime" jdbcType="INTEGER" property="addtime" />
+    <result column="addip" jdbcType="VARCHAR" property="addip" />
+    <result column="updatetime" jdbcType="INTEGER" property="updatetime" />
+    <result column="updateip" jdbcType="VARCHAR" property="updateip" />
+    <result column="plan_hids" jdbcType="VARCHAR" property="planHids" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="inner_trade_no" jdbcType="VARCHAR" property="innerTradeNo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, status, borrow_id, money, account, repayment_account, interest, repayment_yesaccount, 
+    wait_account, wait_interest, repayment_yesinterest, addtime, addip, updatetime, updateip, 
+    plan_hids, out_trade_no, inner_trade_no
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbBorrowTenderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_borrow_tender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_borrow_tender
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_borrow_tender
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbBorrowTenderExample">
+    delete from tb_borrow_tender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbBorrowTender">
+    insert into tb_borrow_tender (id, user_id, status, 
+      borrow_id, money, account, 
+      repayment_account, interest, repayment_yesaccount, 
+      wait_account, wait_interest, repayment_yesinterest, 
+      addtime, addip, updatetime, 
+      updateip, plan_hids, out_trade_no, 
+      inner_trade_no)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{borrowId,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, #{account,jdbcType=DECIMAL}, 
+      #{repaymentAccount,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, #{repaymentYesaccount,jdbcType=DECIMAL}, 
+      #{waitAccount,jdbcType=DECIMAL}, #{waitInterest,jdbcType=DECIMAL}, #{repaymentYesinterest,jdbcType=DECIMAL}, 
+      #{addtime,jdbcType=INTEGER}, #{addip,jdbcType=VARCHAR}, #{updatetime,jdbcType=INTEGER}, 
+      #{updateip,jdbcType=VARCHAR}, #{planHids,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, 
+      #{innerTradeNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbBorrowTender">
+    insert into tb_borrow_tender
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="repaymentAccount != null">
+        repayment_account,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="repaymentYesaccount != null">
+        repayment_yesaccount,
+      </if>
+      <if test="waitAccount != null">
+        wait_account,
+      </if>
+      <if test="waitInterest != null">
+        wait_interest,
+      </if>
+      <if test="repaymentYesinterest != null">
+        repayment_yesinterest,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="addip != null">
+        addip,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="updateip != null">
+        updateip,
+      </if>
+      <if test="planHids != null">
+        plan_hids,
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
+      <if test="innerTradeNo != null">
+        inner_trade_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccount != null">
+        #{repaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentYesaccount != null">
+        #{repaymentYesaccount,jdbcType=DECIMAL},
+      </if>
+      <if test="waitAccount != null">
+        #{waitAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="waitInterest != null">
+        #{waitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentYesinterest != null">
+        #{repaymentYesinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="addip != null">
+        #{addip,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=INTEGER},
+      </if>
+      <if test="updateip != null">
+        #{updateip,jdbcType=VARCHAR},
+      </if>
+      <if test="planHids != null">
+        #{planHids,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="innerTradeNo != null">
+        #{innerTradeNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbBorrowTenderExample" resultType="java.lang.Long">
+    select count(*) from tb_borrow_tender
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_borrow_tender
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null">
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentAccount != null">
+        repayment_account = #{record.repaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null">
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentYesaccount != null">
+        repayment_yesaccount = #{record.repaymentYesaccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.waitAccount != null">
+        wait_account = #{record.waitAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.waitInterest != null">
+        wait_interest = #{record.waitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentYesinterest != null">
+        repayment_yesinterest = #{record.repaymentYesinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.addtime != null">
+        addtime = #{record.addtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.addip != null">
+        addip = #{record.addip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatetime != null">
+        updatetime = #{record.updatetime,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateip != null">
+        updateip = #{record.updateip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.planHids != null">
+        plan_hids = #{record.planHids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outTradeNo != null">
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.innerTradeNo != null">
+        inner_trade_no = #{record.innerTradeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_borrow_tender
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=DECIMAL},
+      account = #{record.account,jdbcType=DECIMAL},
+      repayment_account = #{record.repaymentAccount,jdbcType=DECIMAL},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      repayment_yesaccount = #{record.repaymentYesaccount,jdbcType=DECIMAL},
+      wait_account = #{record.waitAccount,jdbcType=DECIMAL},
+      wait_interest = #{record.waitInterest,jdbcType=DECIMAL},
+      repayment_yesinterest = #{record.repaymentYesinterest,jdbcType=DECIMAL},
+      addtime = #{record.addtime,jdbcType=INTEGER},
+      addip = #{record.addip,jdbcType=VARCHAR},
+      updatetime = #{record.updatetime,jdbcType=INTEGER},
+      updateip = #{record.updateip,jdbcType=VARCHAR},
+      plan_hids = #{record.planHids,jdbcType=VARCHAR},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      inner_trade_no = #{record.innerTradeNo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbBorrowTender">
+    update tb_borrow_tender
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="account != null">
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAccount != null">
+        repayment_account = #{repaymentAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentYesaccount != null">
+        repayment_yesaccount = #{repaymentYesaccount,jdbcType=DECIMAL},
+      </if>
+      <if test="waitAccount != null">
+        wait_account = #{waitAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="waitInterest != null">
+        wait_interest = #{waitInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentYesinterest != null">
+        repayment_yesinterest = #{repaymentYesinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=INTEGER},
+      </if>
+      <if test="addip != null">
+        addip = #{addip,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=INTEGER},
+      </if>
+      <if test="updateip != null">
+        updateip = #{updateip,jdbcType=VARCHAR},
+      </if>
+      <if test="planHids != null">
+        plan_hids = #{planHids,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="innerTradeNo != null">
+        inner_trade_no = #{innerTradeNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbBorrowTender">
+    update tb_borrow_tender
+    set user_id = #{userId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      account = #{account,jdbcType=DECIMAL},
+      repayment_account = #{repaymentAccount,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      repayment_yesaccount = #{repaymentYesaccount,jdbcType=DECIMAL},
+      wait_account = #{waitAccount,jdbcType=DECIMAL},
+      wait_interest = #{waitInterest,jdbcType=DECIMAL},
+      repayment_yesinterest = #{repaymentYesinterest,jdbcType=DECIMAL},
+      addtime = #{addtime,jdbcType=INTEGER},
+      addip = #{addip,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=INTEGER},
+      updateip = #{updateip,jdbcType=VARCHAR},
+      plan_hids = #{planHids,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      inner_trade_no = #{innerTradeNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

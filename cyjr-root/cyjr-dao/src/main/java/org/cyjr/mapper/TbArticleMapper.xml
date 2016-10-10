@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbArticleMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbArticle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="littitle" jdbcType="VARCHAR" property="littitle" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="litpic" jdbcType="VARCHAR" property="litpic" />
+    <result column="flag" jdbcType="VARCHAR" property="flag" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="publish" jdbcType="VARCHAR" property="publish" />
+    <result column="is_jump" jdbcType="VARCHAR" property="isJump" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="jumpurl" jdbcType="VARCHAR" property="jumpurl" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="a_order" jdbcType="INTEGER" property="aOrder" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="comment" jdbcType="INTEGER" property="comment" />
+    <result column="is_comment" jdbcType="VARCHAR" property="isComment" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cyjr.model.TbArticle">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, site_id, name, littitle, status, litpic, flag, source, publish, is_jump, author, 
+    jumpurl, summary, a_order, hits, comment, is_comment, user_id, created_at, updated_at
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.cyjr.model.TbArticleExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbArticleExample">
+    delete from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbArticle">
+    insert into tb_article (id, site_id, name, 
+      littitle, status, litpic, 
+      flag, source, publish, 
+      is_jump, author, jumpurl, 
+      summary, a_order, hits, 
+      comment, is_comment, user_id, 
+      created_at, updated_at, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{siteId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{littitle,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{litpic,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{publish,jdbcType=VARCHAR}, 
+      #{isJump,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{jumpurl,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{aOrder,jdbcType=INTEGER}, #{hits,jdbcType=INTEGER}, 
+      #{comment,jdbcType=INTEGER}, #{isComment,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbArticle">
+    insert into tb_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="littitle != null">
+        littitle,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="litpic != null">
+        litpic,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="publish != null">
+        publish,
+      </if>
+      <if test="isJump != null">
+        is_jump,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="jumpurl != null">
+        jumpurl,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="aOrder != null">
+        a_order,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="isComment != null">
+        is_comment,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="littitle != null">
+        #{littitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="litpic != null">
+        #{litpic,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="isJump != null">
+        #{isJump,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpurl != null">
+        #{jumpurl,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="aOrder != null">
+        #{aOrder,jdbcType=INTEGER},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="isComment != null">
+        #{isComment,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbArticleExample" resultType="java.lang.Long">
+    select count(*) from tb_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.siteId != null">
+        site_id = #{record.siteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.littitle != null">
+        littitle = #{record.littitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.litpic != null">
+        litpic = #{record.litpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null">
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publish != null">
+        publish = #{record.publish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isJump != null">
+        is_jump = #{record.isJump,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jumpurl != null">
+        jumpurl = #{record.jumpurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aOrder != null">
+        a_order = #{record.aOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null">
+        comment = #{record.comment,jdbcType=INTEGER},
+      </if>
+      <if test="record.isComment != null">
+        is_comment = #{record.isComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_article
+    set id = #{record.id,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      littitle = #{record.littitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      litpic = #{record.litpic,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      publish = #{record.publish,jdbcType=VARCHAR},
+      is_jump = #{record.isJump,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      jumpurl = #{record.jumpurl,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      a_order = #{record.aOrder,jdbcType=INTEGER},
+      hits = #{record.hits,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=INTEGER},
+      is_comment = #{record.isComment,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_article
+    set id = #{record.id,jdbcType=INTEGER},
+      site_id = #{record.siteId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      littitle = #{record.littitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      litpic = #{record.litpic,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      publish = #{record.publish,jdbcType=VARCHAR},
+      is_jump = #{record.isJump,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      jumpurl = #{record.jumpurl,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      a_order = #{record.aOrder,jdbcType=INTEGER},
+      hits = #{record.hits,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=INTEGER},
+      is_comment = #{record.isComment,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbArticle">
+    update tb_article
+    <set>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="littitle != null">
+        littitle = #{littitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="litpic != null">
+        litpic = #{litpic,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="publish != null">
+        publish = #{publish,jdbcType=VARCHAR},
+      </if>
+      <if test="isJump != null">
+        is_jump = #{isJump,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpurl != null">
+        jumpurl = #{jumpurl,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="aOrder != null">
+        a_order = #{aOrder,jdbcType=INTEGER},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=INTEGER},
+      </if>
+      <if test="isComment != null">
+        is_comment = #{isComment,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cyjr.model.TbArticle">
+    update tb_article
+    set site_id = #{siteId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      littitle = #{littitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      litpic = #{litpic,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      is_jump = #{isJump,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      jumpurl = #{jumpurl,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      a_order = #{aOrder,jdbcType=INTEGER},
+      hits = #{hits,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=INTEGER},
+      is_comment = #{isComment,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbArticle">
+    update tb_article
+    set site_id = #{siteId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      littitle = #{littitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      litpic = #{litpic,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      is_jump = #{isJump,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      jumpurl = #{jumpurl,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      a_order = #{aOrder,jdbcType=INTEGER},
+      hits = #{hits,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=INTEGER},
+      is_comment = #{isComment,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

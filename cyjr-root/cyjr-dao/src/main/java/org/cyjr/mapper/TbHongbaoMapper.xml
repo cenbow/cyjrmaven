@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbHongbaoMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbHongbao">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="hongbao_money" jdbcType="DECIMAL" property="hongbaoMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created_time" jdbcType="INTEGER" property="createdTime" />
+    <result column="expired_time" jdbcType="INTEGER" property="expiredTime" />
+    <result column="use_time" jdbcType="INTEGER" property="useTime" />
+    <result column="loan_time" jdbcType="INTEGER" property="loanTime" />
+    <result column="use_info" jdbcType="VARCHAR" property="useInfo" />
+    <result column="tender_ratio" jdbcType="DECIMAL" property="tenderRatio" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, borrow_id, tender_id, type, status, hongbao_money, remark, created_time, 
+    expired_time, use_time, loan_time, use_info, tender_ratio
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbHongbaoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_hongbao
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_hongbao
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_hongbao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbHongbaoExample">
+    delete from tb_hongbao
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbHongbao">
+    insert into tb_hongbao (id, user_id, borrow_id, 
+      tender_id, type, status, 
+      hongbao_money, remark, created_time, 
+      expired_time, use_time, loan_time, 
+      use_info, tender_ratio)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{borrowId,jdbcType=INTEGER}, 
+      #{tenderId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{hongbaoMoney,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{createdTime,jdbcType=INTEGER}, 
+      #{expiredTime,jdbcType=INTEGER}, #{useTime,jdbcType=INTEGER}, #{loanTime,jdbcType=INTEGER}, 
+      #{useInfo,jdbcType=VARCHAR}, #{tenderRatio,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbHongbao">
+    insert into tb_hongbao
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="hongbaoMoney != null">
+        hongbao_money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="expiredTime != null">
+        expired_time,
+      </if>
+      <if test="useTime != null">
+        use_time,
+      </if>
+      <if test="loanTime != null">
+        loan_time,
+      </if>
+      <if test="useInfo != null">
+        use_info,
+      </if>
+      <if test="tenderRatio != null">
+        tender_ratio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="hongbaoMoney != null">
+        #{hongbaoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=INTEGER},
+      </if>
+      <if test="expiredTime != null">
+        #{expiredTime,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null">
+        #{useTime,jdbcType=INTEGER},
+      </if>
+      <if test="loanTime != null">
+        #{loanTime,jdbcType=INTEGER},
+      </if>
+      <if test="useInfo != null">
+        #{useInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderRatio != null">
+        #{tenderRatio,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbHongbaoExample" resultType="java.lang.Long">
+    select count(*) from tb_hongbao
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_hongbao
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.hongbaoMoney != null">
+        hongbao_money = #{record.hongbaoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        created_time = #{record.createdTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.expiredTime != null">
+        expired_time = #{record.expiredTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.useTime != null">
+        use_time = #{record.useTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.loanTime != null">
+        loan_time = #{record.loanTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.useInfo != null">
+        use_info = #{record.useInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenderRatio != null">
+        tender_ratio = #{record.tenderRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_hongbao
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      tender_id = #{record.tenderId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      hongbao_money = #{record.hongbaoMoney,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=INTEGER},
+      expired_time = #{record.expiredTime,jdbcType=INTEGER},
+      use_time = #{record.useTime,jdbcType=INTEGER},
+      loan_time = #{record.loanTime,jdbcType=INTEGER},
+      use_info = #{record.useInfo,jdbcType=VARCHAR},
+      tender_ratio = #{record.tenderRatio,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbHongbao">
+    update tb_hongbao
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="hongbaoMoney != null">
+        hongbao_money = #{hongbaoMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=INTEGER},
+      </if>
+      <if test="expiredTime != null">
+        expired_time = #{expiredTime,jdbcType=INTEGER},
+      </if>
+      <if test="useTime != null">
+        use_time = #{useTime,jdbcType=INTEGER},
+      </if>
+      <if test="loanTime != null">
+        loan_time = #{loanTime,jdbcType=INTEGER},
+      </if>
+      <if test="useInfo != null">
+        use_info = #{useInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenderRatio != null">
+        tender_ratio = #{tenderRatio,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbHongbao">
+    update tb_hongbao
+    set user_id = #{userId,jdbcType=INTEGER},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      hongbao_money = #{hongbaoMoney,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=INTEGER},
+      expired_time = #{expiredTime,jdbcType=INTEGER},
+      use_time = #{useTime,jdbcType=INTEGER},
+      loan_time = #{loanTime,jdbcType=INTEGER},
+      use_info = #{useInfo,jdbcType=VARCHAR},
+      tender_ratio = #{tenderRatio,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

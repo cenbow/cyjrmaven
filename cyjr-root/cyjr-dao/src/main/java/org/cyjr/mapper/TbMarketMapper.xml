@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbMarketMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbMarket">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="tender_user_id" jdbcType="INTEGER" property="tenderUserId" />
+    <result column="tender_price" jdbcType="DECIMAL" property="tenderPrice" />
+    <result column="transfer_price" jdbcType="DECIMAL" property="transferPrice" />
+    <result column="collection_money" jdbcType="DECIMAL" property="collectionMoney" />
+    <result column="repay_order" jdbcType="INTEGER" property="repayOrder" />
+    <result column="repay_total_order" jdbcType="INTEGER" property="repayTotalOrder" />
+    <result column="borrow_apr" jdbcType="DECIMAL" property="borrowApr" />
+    <result column="borrow_name" jdbcType="VARCHAR" property="borrowName" />
+    <result column="remaining_days" jdbcType="INTEGER" property="remainingDays" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="update_at" jdbcType="INTEGER" property="updateAt" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, borrow_id, tender_id, tender_user_id, tender_price, transfer_price, collection_money, 
+    repay_order, repay_total_order, borrow_apr, borrow_name, remaining_days, status, 
+    created_at, created_by, update_at, update_by
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbMarketExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_market
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_market
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_market
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbMarketExample">
+    delete from tb_market
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbMarket">
+    insert into tb_market (id, borrow_id, tender_id, 
+      tender_user_id, tender_price, transfer_price, 
+      collection_money, repay_order, repay_total_order, 
+      borrow_apr, borrow_name, remaining_days, 
+      status, created_at, created_by, 
+      update_at, update_by)
+    values (#{id,jdbcType=INTEGER}, #{borrowId,jdbcType=INTEGER}, #{tenderId,jdbcType=INTEGER}, 
+      #{tenderUserId,jdbcType=INTEGER}, #{tenderPrice,jdbcType=DECIMAL}, #{transferPrice,jdbcType=DECIMAL}, 
+      #{collectionMoney,jdbcType=DECIMAL}, #{repayOrder,jdbcType=INTEGER}, #{repayTotalOrder,jdbcType=INTEGER}, 
+      #{borrowApr,jdbcType=DECIMAL}, #{borrowName,jdbcType=VARCHAR}, #{remainingDays,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createdAt,jdbcType=INTEGER}, #{createdBy,jdbcType=INTEGER}, 
+      #{updateAt,jdbcType=INTEGER}, #{updateBy,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbMarket">
+    insert into tb_market
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="tenderUserId != null">
+        tender_user_id,
+      </if>
+      <if test="tenderPrice != null">
+        tender_price,
+      </if>
+      <if test="transferPrice != null">
+        transfer_price,
+      </if>
+      <if test="collectionMoney != null">
+        collection_money,
+      </if>
+      <if test="repayOrder != null">
+        repay_order,
+      </if>
+      <if test="repayTotalOrder != null">
+        repay_total_order,
+      </if>
+      <if test="borrowApr != null">
+        borrow_apr,
+      </if>
+      <if test="borrowName != null">
+        borrow_name,
+      </if>
+      <if test="remainingDays != null">
+        remaining_days,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderUserId != null">
+        #{tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderPrice != null">
+        #{tenderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transferPrice != null">
+        #{transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="collectionMoney != null">
+        #{collectionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="repayOrder != null">
+        #{repayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="repayTotalOrder != null">
+        #{repayTotalOrder,jdbcType=INTEGER},
+      </if>
+      <if test="borrowApr != null">
+        #{borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowName != null">
+        #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingDays != null">
+        #{remainingDays,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbMarketExample" resultType="java.lang.Long">
+    select count(*) from tb_market
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_market
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderUserId != null">
+        tender_user_id = #{record.tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderPrice != null">
+        tender_price = #{record.tenderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transferPrice != null">
+        transfer_price = #{record.transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.collectionMoney != null">
+        collection_money = #{record.collectionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repayOrder != null">
+        repay_order = #{record.repayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayTotalOrder != null">
+        repay_total_order = #{record.repayTotalOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowApr != null">
+        borrow_apr = #{record.borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowName != null">
+        borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remainingDays != null">
+        remaining_days = #{record.remainingDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_market
+    set id = #{record.id,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      tender_id = #{record.tenderId,jdbcType=INTEGER},
+      tender_user_id = #{record.tenderUserId,jdbcType=INTEGER},
+      tender_price = #{record.tenderPrice,jdbcType=DECIMAL},
+      transfer_price = #{record.transferPrice,jdbcType=DECIMAL},
+      collection_money = #{record.collectionMoney,jdbcType=DECIMAL},
+      repay_order = #{record.repayOrder,jdbcType=INTEGER},
+      repay_total_order = #{record.repayTotalOrder,jdbcType=INTEGER},
+      borrow_apr = #{record.borrowApr,jdbcType=DECIMAL},
+      borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      remaining_days = #{record.remainingDays,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      created_by = #{record.createdBy,jdbcType=INTEGER},
+      update_at = #{record.updateAt,jdbcType=INTEGER},
+      update_by = #{record.updateBy,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbMarket">
+    update tb_market
+    <set>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderUserId != null">
+        tender_user_id = #{tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderPrice != null">
+        tender_price = #{tenderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="transferPrice != null">
+        transfer_price = #{transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="collectionMoney != null">
+        collection_money = #{collectionMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="repayOrder != null">
+        repay_order = #{repayOrder,jdbcType=INTEGER},
+      </if>
+      <if test="repayTotalOrder != null">
+        repay_total_order = #{repayTotalOrder,jdbcType=INTEGER},
+      </if>
+      <if test="borrowApr != null">
+        borrow_apr = #{borrowApr,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowName != null">
+        borrow_name = #{borrowName,jdbcType=VARCHAR},
+      </if>
+      <if test="remainingDays != null">
+        remaining_days = #{remainingDays,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbMarket">
+    update tb_market
+    set borrow_id = #{borrowId,jdbcType=INTEGER},
+      tender_id = #{tenderId,jdbcType=INTEGER},
+      tender_user_id = #{tenderUserId,jdbcType=INTEGER},
+      tender_price = #{tenderPrice,jdbcType=DECIMAL},
+      transfer_price = #{transferPrice,jdbcType=DECIMAL},
+      collection_money = #{collectionMoney,jdbcType=DECIMAL},
+      repay_order = #{repayOrder,jdbcType=INTEGER},
+      repay_total_order = #{repayTotalOrder,jdbcType=INTEGER},
+      borrow_apr = #{borrowApr,jdbcType=DECIMAL},
+      borrow_name = #{borrowName,jdbcType=VARCHAR},
+      remaining_days = #{remainingDays,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      update_at = #{updateAt,jdbcType=INTEGER},
+      update_by = #{updateBy,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

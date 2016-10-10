@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbDebtTransferMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbDebtTransfer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tender_id" jdbcType="INTEGER" property="tenderId" />
+    <result column="tender_user_id" jdbcType="INTEGER" property="tenderUserId" />
+    <result column="receive_user_id" jdbcType="INTEGER" property="receiveUserId" />
+    <result column="borrow_id" jdbcType="INTEGER" property="borrowId" />
+    <result column="transfer_price" jdbcType="DECIMAL" property="transferPrice" />
+    <result column="advance_interest" jdbcType="DECIMAL" property="advanceInterest" />
+    <result column="trust_status" jdbcType="INTEGER" property="trustStatus" />
+    <result column="created_by" jdbcType="INTEGER" property="createdBy" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_at" jdbcType="INTEGER" property="updateAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tender_id, tender_user_id, receive_user_id, borrow_id, transfer_price, advance_interest, 
+    trust_status, created_by, created_at, update_by, update_at
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbDebtTransferExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_debt_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_debt_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_debt_transfer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbDebtTransferExample">
+    delete from tb_debt_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbDebtTransfer">
+    insert into tb_debt_transfer (id, tender_id, tender_user_id, 
+      receive_user_id, borrow_id, transfer_price, 
+      advance_interest, trust_status, created_by, 
+      created_at, update_by, update_at
+      )
+    values (#{id,jdbcType=INTEGER}, #{tenderId,jdbcType=INTEGER}, #{tenderUserId,jdbcType=INTEGER}, 
+      #{receiveUserId,jdbcType=INTEGER}, #{borrowId,jdbcType=INTEGER}, #{transferPrice,jdbcType=DECIMAL}, 
+      #{advanceInterest,jdbcType=DECIMAL}, #{trustStatus,jdbcType=INTEGER}, #{createdBy,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=INTEGER}, #{updateBy,jdbcType=INTEGER}, #{updateAt,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbDebtTransfer">
+    insert into tb_debt_transfer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="tenderUserId != null">
+        tender_user_id,
+      </if>
+      <if test="receiveUserId != null">
+        receive_user_id,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="transferPrice != null">
+        transfer_price,
+      </if>
+      <if test="advanceInterest != null">
+        advance_interest,
+      </if>
+      <if test="trustStatus != null">
+        trust_status,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderUserId != null">
+        #{tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserId != null">
+        #{receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="transferPrice != null">
+        #{transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null">
+        #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="trustStatus != null">
+        #{trustStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbDebtTransferExample" resultType="java.lang.Long">
+    select count(*) from tb_debt_transfer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_debt_transfer
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.tenderUserId != null">
+        tender_user_id = #{record.tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.receiveUserId != null">
+        receive_user_id = #{record.receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferPrice != null">
+        transfer_price = #{record.transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.advanceInterest != null">
+        advance_interest = #{record.advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.trustStatus != null">
+        trust_status = #{record.trustStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdBy != null">
+        created_by = #{record.createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_debt_transfer
+    set id = #{record.id,jdbcType=INTEGER},
+      tender_id = #{record.tenderId,jdbcType=INTEGER},
+      tender_user_id = #{record.tenderUserId,jdbcType=INTEGER},
+      receive_user_id = #{record.receiveUserId,jdbcType=INTEGER},
+      borrow_id = #{record.borrowId,jdbcType=INTEGER},
+      transfer_price = #{record.transferPrice,jdbcType=DECIMAL},
+      advance_interest = #{record.advanceInterest,jdbcType=DECIMAL},
+      trust_status = #{record.trustStatus,jdbcType=INTEGER},
+      created_by = #{record.createdBy,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      update_by = #{record.updateBy,jdbcType=INTEGER},
+      update_at = #{record.updateAt,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbDebtTransfer">
+    update tb_debt_transfer
+    <set>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=INTEGER},
+      </if>
+      <if test="tenderUserId != null">
+        tender_user_id = #{tenderUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiveUserId != null">
+        receive_user_id = #{receiveUserId,jdbcType=INTEGER},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=INTEGER},
+      </if>
+      <if test="transferPrice != null">
+        transfer_price = #{transferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="advanceInterest != null">
+        advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="trustStatus != null">
+        trust_status = #{trustStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbDebtTransfer">
+    update tb_debt_transfer
+    set tender_id = #{tenderId,jdbcType=INTEGER},
+      tender_user_id = #{tenderUserId,jdbcType=INTEGER},
+      receive_user_id = #{receiveUserId,jdbcType=INTEGER},
+      borrow_id = #{borrowId,jdbcType=INTEGER},
+      transfer_price = #{transferPrice,jdbcType=DECIMAL},
+      advance_interest = #{advanceInterest,jdbcType=DECIMAL},
+      trust_status = #{trustStatus,jdbcType=INTEGER},
+      created_by = #{createdBy,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      update_by = #{updateBy,jdbcType=INTEGER},
+      update_at = #{updateAt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

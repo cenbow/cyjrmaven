@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbUserAccountMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbUserAccount">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="money_total" jdbcType="DECIMAL" property="moneyTotal" />
+    <result column="money_usable" jdbcType="DECIMAL" property="moneyUsable" />
+    <result column="money_tender_freeze" jdbcType="DECIMAL" property="moneyTenderFreeze" />
+    <result column="money_collection" jdbcType="DECIMAL" property="moneyCollection" />
+    <result column="profits_total" jdbcType="DECIMAL" property="profitsTotal" />
+    <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    <result column="sina_interest_all" jdbcType="DECIMAL" property="sinaInterestAll" />
+    <result column="sina_interest_last" jdbcType="DECIMAL" property="sinaInterestLast" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, money_total, money_usable, money_tender_freeze, money_collection, profits_total, 
+    created_at, updated_at, sina_interest_all, sina_interest_last
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbUserAccountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_user_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_account
+    where id = #{id,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from tb_user_account
+    where id = #{id,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbUserAccountExample">
+    delete from tb_user_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbUserAccount">
+    insert into tb_user_account (id, user_id, money_total, 
+      money_usable, money_tender_freeze, money_collection, 
+      profits_total, created_at, updated_at, 
+      sina_interest_all, sina_interest_last)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{moneyTotal,jdbcType=DECIMAL}, 
+      #{moneyUsable,jdbcType=DECIMAL}, #{moneyTenderFreeze,jdbcType=DECIMAL}, #{moneyCollection,jdbcType=DECIMAL}, 
+      #{profitsTotal,jdbcType=DECIMAL}, #{createdAt,jdbcType=INTEGER}, #{updatedAt,jdbcType=INTEGER}, 
+      #{sinaInterestAll,jdbcType=DECIMAL}, #{sinaInterestLast,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbUserAccount">
+    insert into tb_user_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="moneyTotal != null">
+        money_total,
+      </if>
+      <if test="moneyUsable != null">
+        money_usable,
+      </if>
+      <if test="moneyTenderFreeze != null">
+        money_tender_freeze,
+      </if>
+      <if test="moneyCollection != null">
+        money_collection,
+      </if>
+      <if test="profitsTotal != null">
+        profits_total,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="sinaInterestAll != null">
+        sina_interest_all,
+      </if>
+      <if test="sinaInterestLast != null">
+        sina_interest_last,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyTotal != null">
+        #{moneyTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyUsable != null">
+        #{moneyUsable,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyTenderFreeze != null">
+        #{moneyTenderFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyCollection != null">
+        #{moneyCollection,jdbcType=DECIMAL},
+      </if>
+      <if test="profitsTotal != null">
+        #{profitsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="sinaInterestAll != null">
+        #{sinaInterestAll,jdbcType=DECIMAL},
+      </if>
+      <if test="sinaInterestLast != null">
+        #{sinaInterestLast,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbUserAccountExample" resultType="java.lang.Long">
+    select count(*) from tb_user_account
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_user_account
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyTotal != null">
+        money_total = #{record.moneyTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.moneyUsable != null">
+        money_usable = #{record.moneyUsable,jdbcType=DECIMAL},
+      </if>
+      <if test="record.moneyTenderFreeze != null">
+        money_tender_freeze = #{record.moneyTenderFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="record.moneyCollection != null">
+        money_collection = #{record.moneyCollection,jdbcType=DECIMAL},
+      </if>
+      <if test="record.profitsTotal != null">
+        profits_total = #{record.profitsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="record.sinaInterestAll != null">
+        sina_interest_all = #{record.sinaInterestAll,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sinaInterestLast != null">
+        sina_interest_last = #{record.sinaInterestLast,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_user_account
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      money_total = #{record.moneyTotal,jdbcType=DECIMAL},
+      money_usable = #{record.moneyUsable,jdbcType=DECIMAL},
+      money_tender_freeze = #{record.moneyTenderFreeze,jdbcType=DECIMAL},
+      money_collection = #{record.moneyCollection,jdbcType=DECIMAL},
+      profits_total = #{record.profitsTotal,jdbcType=DECIMAL},
+      created_at = #{record.createdAt,jdbcType=INTEGER},
+      updated_at = #{record.updatedAt,jdbcType=INTEGER},
+      sina_interest_all = #{record.sinaInterestAll,jdbcType=DECIMAL},
+      sina_interest_last = #{record.sinaInterestLast,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbUserAccount">
+    update tb_user_account
+    <set>
+      <if test="moneyTotal != null">
+        money_total = #{moneyTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyUsable != null">
+        money_usable = #{moneyUsable,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyTenderFreeze != null">
+        money_tender_freeze = #{moneyTenderFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="moneyCollection != null">
+        money_collection = #{moneyCollection,jdbcType=DECIMAL},
+      </if>
+      <if test="profitsTotal != null">
+        profits_total = #{profitsTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=INTEGER},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=INTEGER},
+      </if>
+      <if test="sinaInterestAll != null">
+        sina_interest_all = #{sinaInterestAll,jdbcType=DECIMAL},
+      </if>
+      <if test="sinaInterestLast != null">
+        sina_interest_last = #{sinaInterestLast,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbUserAccount">
+    update tb_user_account
+    set money_total = #{moneyTotal,jdbcType=DECIMAL},
+      money_usable = #{moneyUsable,jdbcType=DECIMAL},
+      money_tender_freeze = #{moneyTenderFreeze,jdbcType=DECIMAL},
+      money_collection = #{moneyCollection,jdbcType=DECIMAL},
+      profits_total = #{profitsTotal,jdbcType=DECIMAL},
+      created_at = #{createdAt,jdbcType=INTEGER},
+      updated_at = #{updatedAt,jdbcType=INTEGER},
+      sina_interest_all = #{sinaInterestAll,jdbcType=DECIMAL},
+      sina_interest_last = #{sinaInterestLast,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

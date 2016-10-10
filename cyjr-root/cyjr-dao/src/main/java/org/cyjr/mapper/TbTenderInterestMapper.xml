@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cyjr.dao.TbTenderInterestMapper">
+  <resultMap id="BaseResultMap" type="com.cyjr.model.TbTenderInterest">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="interest_id" jdbcType="BIGINT" property="interestId" />
+    <result column="tender_id" jdbcType="BIGINT" property="tenderId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="interest_money" jdbcType="DECIMAL" property="interestMoney" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="borrow_id" jdbcType="BIGINT" property="borrowId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="interest_ratio" jdbcType="DECIMAL" property="interestRatio" />
+    <result column="borrow_name" jdbcType="VARCHAR" property="borrowName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, interest_id, tender_id, user_id, interest_money, status, remark, created_time, 
+    updated_time, borrow_id, order_id, interest_ratio, borrow_name
+  </sql>
+  <select id="selectByExample" parameterType="com.cyjr.model.TbTenderInterestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_tender_interest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_tender_interest
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_tender_interest
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cyjr.model.TbTenderInterestExample">
+    delete from tb_tender_interest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cyjr.model.TbTenderInterest">
+    insert into tb_tender_interest (id, interest_id, tender_id, 
+      user_id, interest_money, status, 
+      remark, created_time, updated_time, 
+      borrow_id, order_id, interest_ratio, 
+      borrow_name)
+    values (#{id,jdbcType=BIGINT}, #{interestId,jdbcType=BIGINT}, #{tenderId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{interestMoney,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT}, 
+      #{borrowId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{interestRatio,jdbcType=DECIMAL}, 
+      #{borrowName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cyjr.model.TbTenderInterest">
+    insert into tb_tender_interest
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="interestId != null">
+        interest_id,
+      </if>
+      <if test="tenderId != null">
+        tender_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="interestMoney != null">
+        interest_money,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="borrowId != null">
+        borrow_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="interestRatio != null">
+        interest_ratio,
+      </if>
+      <if test="borrowName != null">
+        borrow_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="interestId != null">
+        #{interestId,jdbcType=BIGINT},
+      </if>
+      <if test="tenderId != null">
+        #{tenderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="interestMoney != null">
+        #{interestMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=BIGINT},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=BIGINT},
+      </if>
+      <if test="borrowId != null">
+        #{borrowId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="interestRatio != null">
+        #{interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowName != null">
+        #{borrowName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cyjr.model.TbTenderInterestExample" resultType="java.lang.Long">
+    select count(*) from tb_tender_interest
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_tender_interest
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.interestId != null">
+        interest_id = #{record.interestId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tenderId != null">
+        tender_id = #{record.tenderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.interestMoney != null">
+        interest_money = #{record.interestMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null">
+        created_time = #{record.createdTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedTime != null">
+        updated_time = #{record.updatedTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.borrowId != null">
+        borrow_id = #{record.borrowId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.interestRatio != null">
+        interest_ratio = #{record.interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.borrowName != null">
+        borrow_name = #{record.borrowName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_tender_interest
+    set id = #{record.id,jdbcType=BIGINT},
+      interest_id = #{record.interestId,jdbcType=BIGINT},
+      tender_id = #{record.tenderId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      interest_money = #{record.interestMoney,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=BIGINT},
+      updated_time = #{record.updatedTime,jdbcType=BIGINT},
+      borrow_id = #{record.borrowId,jdbcType=BIGINT},
+      order_id = #{record.orderId,jdbcType=BIGINT},
+      interest_ratio = #{record.interestRatio,jdbcType=DECIMAL},
+      borrow_name = #{record.borrowName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cyjr.model.TbTenderInterest">
+    update tb_tender_interest
+    <set>
+      <if test="interestId != null">
+        interest_id = #{interestId,jdbcType=BIGINT},
+      </if>
+      <if test="tenderId != null">
+        tender_id = #{tenderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="interestMoney != null">
+        interest_money = #{interestMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=BIGINT},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=BIGINT},
+      </if>
+      <if test="borrowId != null">
+        borrow_id = #{borrowId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="interestRatio != null">
+        interest_ratio = #{interestRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="borrowName != null">
+        borrow_name = #{borrowName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cyjr.model.TbTenderInterest">
+    update tb_tender_interest
+    set interest_id = #{interestId,jdbcType=BIGINT},
+      tender_id = #{tenderId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      interest_money = #{interestMoney,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=BIGINT},
+      updated_time = #{updatedTime,jdbcType=BIGINT},
+      borrow_id = #{borrowId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      interest_ratio = #{interestRatio,jdbcType=DECIMAL},
+      borrow_name = #{borrowName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
