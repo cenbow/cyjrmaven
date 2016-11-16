@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
+	<!-- <typeAliases>
 		<typeAlias alias="user" type="com.darren.models.User"/>
-	</typeAliases>
+	</typeAliases> -->
 	
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/User-sqlmap-mapping.xml" />
+		<mapper resource="org/cyjr/mapper/*.xml" />
 	</mappers>
 </configuration>

@@ -20,9 +20,15 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
 	default-autowire="byName">
-
+	
+	<!-- 配置sqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:conf/mybatis-config.xml"></property>
+		<property name="configLocation" value="classpath:spring/sqlMap-Config.xml"></property>
 	</bean>
+	
+	<!-- 配置SqlSessionTemplate -->    
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">    
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />    
+    </bean>  
 </beans>
