@@ -25,6 +25,8 @@
 	<context:component-scan base-package="com.**.web.**.service" />
 	<context:component-scan base-package="com.**.web.**.controller" />
 	<context:component-scan base-package="com.**.web.**.dao" />
+	
+	<!-- CommonsMultipartResolver -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
