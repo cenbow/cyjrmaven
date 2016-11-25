@@ -21,11 +21,21 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
 		default-autowire="byName">
 
-	<bean id="dbConfig"
+<!-- 	<bean id="dbConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:conf/db.properties</value>
+			</list>
+		</property>
+	</bean> -->
+	
+		<bean id="propertyConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/conf/sinapay.properties</value>
+				<value>classpath:/conf/db.properties</value>
 			</list>
 		</property>
 	</bean>
